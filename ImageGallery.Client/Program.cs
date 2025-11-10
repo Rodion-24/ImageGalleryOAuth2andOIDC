@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews()
-    .AddJsonOptions(configure => 
+    .AddJsonOptions(configure =>
         configure.JsonSerializerOptions.PropertyNamingPolicy = null);
 
 
@@ -15,6 +15,14 @@ builder.Services.AddHttpClient("APIClient", client =>
     client.BaseAddress = apiRoot == null ? null : new Uri(apiRoot);
     client.DefaultRequestHeaders.Clear();
     client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+})
+.ConfigurePrimaryHttpMessageHandler(() =>
+{
+    return new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback =
+            (message, cert, chain, errors) => true
+    };
 });
 
 var app = builder.Build();
