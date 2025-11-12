@@ -1,4 +1,5 @@
-﻿using Duende.IdentityServer.Models;
+﻿using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
 
 namespace Rodion.IDP;
 
@@ -17,5 +18,20 @@ public static class Config
 
     public static IEnumerable<Client> Clients =>
         new Client[]
-            { };
+        {
+            new Client
+            {
+                ClientId = "imagegalleryclient",
+                ClientName = "Image Gallery",
+                AllowedGrantTypes = GrantTypes.Code,
+                RedirectUris = { "https://localhost:7184/signin-oidc" },
+                AllowedScopes =
+                {
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile
+                },
+                ClientSecrets = { new Secret("secret".Sha256()) },
+                RequireConsent = true
+            }
+        };
 }
