@@ -17,6 +17,9 @@ public static class Config
         new ApiResource[]
         {
             new ApiResource("imagegalleryapi", "Image Gallery API")
+            {
+                Scopes = { "imagegalleryapi.fullaccess" }
+            }
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
@@ -44,7 +47,7 @@ public static class Config
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
                     "roles",
-                    "imagegalleryapi"
+                    "imagegalleryapi.fullaccess"
                 },
                 ClientSecrets = { new Secret("secret".Sha256()) },
                 RequireConsent = true

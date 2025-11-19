@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using ImageGallery.API.Services;
 using ImageGallery.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ImageGallery.API.Controllers;
 
 [Route("api/images")]
 [ApiController]
+[Authorize]
 public class ImagesController(
     IGalleryRepository galleryRepository,
     IWebHostEnvironment hostingEnvironment,
@@ -34,7 +36,7 @@ public class ImagesController(
 
     [HttpGet("{id}", Name = "GetImage")]
     public async Task<ActionResult<Image>> GetImage(Guid id)
-    {          
+    {
         var imageFromRepo = await _galleryRepository.GetImageAsync(id);
 
         if (imageFromRepo == null)
@@ -62,7 +64,7 @@ public class ImagesController(
 
         // create the filename
         string fileName = Guid.NewGuid().ToString() + ".jpg";
-        
+
         // the full file path
         var filePath = Path.Combine($"{webRootPath}/images/{fileName}");
 
@@ -90,7 +92,7 @@ public class ImagesController(
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteImage(Guid id)
-    {            
+    {
         var imageFromRepo = await _galleryRepository.GetImageAsync(id);
 
         if (imageFromRepo == null)
@@ -106,7 +108,7 @@ public class ImagesController(
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateImage(Guid id, 
+    public async Task<IActionResult> UpdateImage(Guid id,
         [FromBody] ImageForUpdate imageForUpdate)
     {
         var imageFromRepo = await _galleryRepository.GetImageAsync(id);
