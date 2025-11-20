@@ -33,8 +33,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters = new()
         {
             NameClaimType = "given_name",
-            RoleClaimType = "role",
-            ValidTypes = new[] { "at+jwt" }
+            RoleClaimType = "role"
         };
     });
 
@@ -43,13 +42,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 
-app.UseAuthorization();
+app.UseRouting();
 
 app.UseAuthentication();
-app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

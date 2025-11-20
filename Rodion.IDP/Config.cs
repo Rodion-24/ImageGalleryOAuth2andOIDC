@@ -18,13 +18,16 @@ public static class Config
         {
             new ApiResource("imagegalleryapi", "Image Gallery API")
             {
-                Scopes = { "imagegalleryapi.fullaccess" }
+                Scopes = { "imagegalleryapi.fullaccess" },
+                UserClaims = { "role" }
             }
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
-            { };
+        {
+        new ApiScope("imagegalleryapi.fullaccess", "Full access to Image Gallery API")
+        };
 
     public static IEnumerable<Client> Clients =>
         new Client[]
@@ -34,6 +37,7 @@ public static class Config
                 ClientId = "imagegalleryclient",
                 ClientName = "Image Gallery",
                 AllowedGrantTypes = GrantTypes.Code,
+                AccessTokenType = AccessTokenType.Jwt,
                 RedirectUris =
                 {
                     "https://localhost:7184/signin-oidc"
