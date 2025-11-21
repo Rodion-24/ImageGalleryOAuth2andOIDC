@@ -57,6 +57,8 @@ builder.Services.AddAuthentication(options =>
     options.Scope.Add("roles");
     options.Scope.Add("imagegalleryapi.fullaccess");
     options.ClaimActions.MapJsonKey("role", "role");
+    options.SaveTokens = true;
+    options.GetClaimsFromUserInfoEndpoint = true;
     options.TokenValidationParameters = new()
     {
         NameClaimType = "given_name",

@@ -16,17 +16,16 @@ public static class Config
     public static IEnumerable<ApiResource> ApiResources =>
         new ApiResource[]
         {
-            new ApiResource("imagegalleryapi", "Image Gallery API")
+            new ApiResource("imagegalleryapi", "Image Gallery API", new[] { "role" })
             {
-                Scopes = { "imagegalleryapi.fullaccess" },
-                UserClaims = { "role" }
+                Scopes = { "imagegalleryapi.fullaccess" }
             }
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
         {
-        new ApiScope("imagegalleryapi.fullaccess", "Full access to Image Gallery API")
+            new ApiScope("imagegalleryapi.fullaccess")
         };
 
     public static IEnumerable<Client> Clients =>
