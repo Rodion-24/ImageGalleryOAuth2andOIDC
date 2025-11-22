@@ -10,7 +10,10 @@ public static class Config
         {
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
-            new IdentityResource("roles", "You role(s)", new [] { "role" })
+            new IdentityResource("roles", "You role(s)", new [] { "role" }),
+            new IdentityResource("country",
+                "The country you're living in",
+                new List<string>(){"country"})
         };
 
     public static IEnumerable<ApiResource> ApiResources =>
@@ -50,7 +53,8 @@ public static class Config
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
                     "roles",
-                    "imagegalleryapi.fullaccess"
+                    "imagegalleryapi.fullaccess",
+                    "country"
                 },
                 ClientSecrets = { new Secret("secret".Sha256()) },
                 RequireConsent = true
